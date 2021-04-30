@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace HarmonicJumps
 {
-    public class Key
+    public class Key : IEquatable<Key>
     {
         public int Value { get; }
         public Signature Signature { get; }
@@ -42,5 +43,11 @@ namespace HarmonicJumps
         }
 
         public static Key operator -(Key a) => a.Signature == Signature.Minor ? new Key(a.Value, Signature.Major) : new Key(a.Value, Signature.Minor);
+
+        public bool Equals([AllowNull] Key other)
+        {
+            if (other is null) return false;
+            return Value == other.Value && Signature == other.Signature;
+        }
     }
 }
