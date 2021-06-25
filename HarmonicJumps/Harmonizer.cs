@@ -4,34 +4,38 @@ namespace HarmonicJumps
 {
     public class Harmonizer
     {
-        public IEnumerable<Key> Next(Key key)
+        public int MaxDepth { get; }
+
+        public Harmonizer(int maxDepth)
         {
-            var keys = new List<Key>
-            {
-                key - 7,
-                key - 2,
-                key - 1,
-                key,
-                -key,
-                key + 1,
-                key + 2,
-                key + 7,
-            };
+            MaxDepth = maxDepth;
+        }
+
+        public static IEnumerable<Key> Next(Key key, FindOptions options = FindOptions.RepeatSameKey)
+        {
+            yield return key - 7;
+            yield return key - 2;
+            yield return key - 1;
+            if(options.HasFlag(FindOptions.RepeatSameKey)) yield return key;
+            yield return -key;
+            yield return key + 1;
+            yield return key + 2;
+            yield return key + 7;
 
             if(key.Signature == Signature.Minor)
             {
-                keys.Add(-key - 1);
-                keys.Add(-key + 3);
-                keys.Add(-key - 4);
+                yield return -key - 1;
+                yield return -key + 3;
+                yield return -key - 4;
             }
             else if(key.Signature == Signature.Major)
             {
-                keys.Add(-key + 1);
-                keys.Add(-key - 3);
-                keys.Add(-key + 4);
+                yield return -key + 1;
+                yield return -key - 3;
+                yield return -key + 4;
             }
+        }
 
-            return keys;
         }
     }
 }

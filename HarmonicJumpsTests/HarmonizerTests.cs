@@ -28,9 +28,7 @@ namespace HarmonicJumpsTests
                 new Key(8, Signature.Major)
             };
 
-            var harmonizer = new Harmonizer();
-
-            var result = harmonizer.Next(key);
+            var result = Harmonizer.Next(key);
 
             CollectionAssert.AreEquivalent(expected, result);
         }
@@ -55,9 +53,31 @@ namespace HarmonicJumpsTests
                 new Key(8, Signature.Minor)
             };
 
-            var harmonizer = new Harmonizer();
+            var result = Harmonizer.Next(key);
 
-            var result = harmonizer.Next(key);
+            CollectionAssert.AreEquivalent(expected, result);
+        }
+
+        [Test]
+        public void Next_1A_FindOptionsDefault_DoesNotContain1A()
+        {
+            var key = new Key(1, Signature.Minor);
+
+            var expected = new[]
+            {
+                new Key(6, Signature.Minor),
+                new Key(9, Signature.Major),
+                new Key(11, Signature.Minor),
+                new Key(12, Signature.Minor),
+                new Key(12, Signature.Major),
+                new Key(1, Signature.Major),
+                new Key(2, Signature.Minor),
+                new Key(3, Signature.Minor),
+                new Key(4, Signature.Major),
+                new Key(8, Signature.Minor)
+            };
+
+            var result = Harmonizer.Next(key, FindOptions.Default);
 
             CollectionAssert.AreEquivalent(expected, result);
         }
