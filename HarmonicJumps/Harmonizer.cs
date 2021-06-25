@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HarmonicJumps
 {
@@ -36,6 +40,48 @@ namespace HarmonicJumps
             }
         }
 
+        public IEnumerable<ICollection<Key>> Find(Key start, Key end, FindOptions options = FindOptions.Default)
+        {
+            if (start.Equals(end)) throw new ArgumentException($"Source and target key are the same.");
+            var root = new Node<Key> { Value = start };
+            var paths = Next(start, options)
+                .Select(key => new[] { new Node<Key> { Value = key, Parent = root } })
+                .AsParallel()
+                .Select(child => FindInternal(new Queue<Node<Key>>(child), end, 1, options));
+
+            return paths.Aggregate(
+                () => Enumerable.Empty<ICollection<Key>>(),
+                (paths, nextResult) => paths.Concat(nextResult),
+                (paths, otherPaths) => paths.Concat(otherPaths),
+                result => result);
+        }
+
+        private IEnumerable<ICollection<Key>> FindInternal(Queue<Node<Key>> nodesToProcess, Key end, int currentDepth, FindOptions options)
+        {
+            if (currentDepth > MaxDepth || !nodesToProcess.Any()) yield break;
+
+            var node = nodesToProcess.Dequeue();
+
+            if (node.Value.Equals(end))
+            {
+                yield return new[] { node.Value }.Concat(node.GetParents()).Reverse().ToArray();
+            }
+            else
+            {
+                var children = Next(node.Value, options)
+                    .Where(key => options.HasFlag(FindOptions.RepeatSameKey) || !node.GetParents().Contains(key))
+                    .Select(key => new Node<Key> { Value = key, Parent = node });
+
+                foreach (var child in children)
+                {
+                    nodesToProcess.Enqueue(child);
+                }
+            }
+
+            foreach(var seq in FindInternal(nodesToProcess, end, node.Depth, options))
+            {
+                yield return seq;
+            }
         }
     }
 }

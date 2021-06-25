@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using HarmonicJumps;
 using NUnit.Framework;
 
@@ -80,6 +81,30 @@ namespace HarmonicJumpsTests
             var result = Harmonizer.Next(key, FindOptions.Default);
 
             CollectionAssert.AreEquivalent(expected, result);
+        }
+
+        [Test]
+        public void Find_SameKey_ThrowsArgumentException()
+        {
+            var harmonizer = new Harmonizer(3);
+            var key = new Key(1, Signature.Minor);
+
+            Assert.Throws<ArgumentException>(() => harmonizer.Find(key, key));
+        }
+
+        [Test]
+        public void Find_1A_6B_DoesNotRepeatSameKeyTwice()
+        {
+            var harmonizer = new Harmonizer(4);
+            var start = new Key(1, Signature.Minor);
+            var end = new Key(6, Signature.Major);
+
+            var results = harmonizer.Find(start, end).ToArray();
+
+            foreach(var result in results)
+            {
+                CollectionAssert.AreEqual(result, result.Distinct());
+            }
         }
     }
 }
