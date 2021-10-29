@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Database;
 using HarmonicJumps;
@@ -26,7 +27,7 @@ namespace HarmonicJumps
         public DateTime DateCreated { get; set; }
         public string[][] Playlists { get; set; }
 
-        public static Track FromID(SQLiteConnection db, string id)
+        public static Track FromID(SQLiteConnection db, string id, string sharePath = "")
         {
             var content = db.Find<Content>(id);
             var artist = db.Find<Artist>(content.ArtistID);
@@ -66,7 +67,7 @@ namespace HarmonicJumps
                 Label = label?.Name,
                 Key = HarmonicJumps.Key.FromScaleName(key.ScaleName),
                 DJPlayCount = content.DJPlayCount ?? 0,
-                ImagePath = content.ImagePath,
+                ImagePath = Path.Combine(sharePath, content.ImagePath),
                 Tags = myTags.Where(mt => mt.ParentID != "1").Select(mt => mt.Name).ToArray(),
                 DateCreated = DateTime.Parse(content.DateCreated),
                 Playlists = innermostPlaylists.Select(getPlaylistPath).ToArray()
