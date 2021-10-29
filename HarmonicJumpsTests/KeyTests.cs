@@ -13,14 +13,14 @@ namespace HarmonicJumpsTests
             
             foreach(var value in values)
             {
-                Assert.Throws<ArgumentOutOfRangeException>(() => new Key(value, Signature.Major));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Key.Create(value, Signature.Major));
             }
         }
 
         [Test]
         public void Key_SignatureDefault_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Key(1, default));
+            Assert.Throws<ArgumentException>(() => Key.Create(1, default));
         }
 
         [TestCase(1, 1, 2)]
@@ -37,7 +37,7 @@ namespace HarmonicJumpsTests
         [TestCase(8, -34, 10)]
         public void Add(int valueOfKey, int valueToAdd, int resultValue)
         {
-            var key = new Key(valueOfKey, Signature.Minor);
+            var key = Key.Create(valueOfKey, Signature.Minor);
 
             var result = key + valueToAdd;
 
@@ -59,7 +59,7 @@ namespace HarmonicJumpsTests
         [TestCase(8, -34, 6)]
         public void Substract(int valueOfKey, int valueToAdd, int resultValue)
         {
-            var key = new Key(valueOfKey, Signature.Minor);
+            var key = Key.Create(valueOfKey, Signature.Minor);
 
             var result = key - valueToAdd;
 
@@ -71,7 +71,7 @@ namespace HarmonicJumpsTests
         [TestCase(Signature.Major, Signature.Minor)]
         public void Negate(Signature signatureOfKey, Signature resultSignature)
         {
-            var key = new Key(12, signatureOfKey);
+            var key = Key.Create(12, signatureOfKey);
 
             var result = -key;
 
