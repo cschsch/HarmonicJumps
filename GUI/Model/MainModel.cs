@@ -8,12 +8,10 @@ namespace GUI.Model
     public class MainModel
     {
         public Track NowPlaying { get; set; }
-        public Track[] Tracks { get; set; }
         public Track[] FilteredTracks { get; set; }
 
-        public MainModel(Track[] tracks)
+        public MainModel()
         {
-            Tracks = tracks;
         }
     }
 
