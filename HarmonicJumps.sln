@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonicJumps", "HarmonicJumps\HarmonicJumps.csproj", "{E857C030-4DBD-485A-B0B0-1927E55F75B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonicJumps", "HarmonicJumps\HarmonicJumps.csproj", "{E857C030-4DBD-485A-B0B0-1927E55F75B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonicJumpsTests", "HarmonicJumpsTests\HarmonicJumpsTests.csproj", "{9C751F89-30DB-4820-87D4-1155BAC50BEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonicJumpsTests", "HarmonicJumpsTests\HarmonicJumpsTests.csproj", "{9C751F89-30DB-4820-87D4-1155BAC50BEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{0770138C-B89B-4BA1-AD80-84C1CF683B57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{AAA5128A-C760-460E-87B3-37BD2DF437FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "CommandLine\CommandLine.csproj", "{0836878D-B572-4E39-9817-55FF141CB162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{9C751F89-30DB-4820-87D4-1155BAC50BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C751F89-30DB-4820-87D4-1155BAC50BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C751F89-30DB-4820-87D4-1155BAC50BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0770138C-B89B-4BA1-AD80-84C1CF683B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0770138C-B89B-4BA1-AD80-84C1CF683B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0770138C-B89B-4BA1-AD80-84C1CF683B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0770138C-B89B-4BA1-AD80-84C1CF683B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA5128A-C760-460E-87B3-37BD2DF437FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA5128A-C760-460E-87B3-37BD2DF437FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA5128A-C760-460E-87B3-37BD2DF437FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA5128A-C760-460E-87B3-37BD2DF437FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0836878D-B572-4E39-9817-55FF141CB162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0836878D-B572-4E39-9817-55FF141CB162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0836878D-B572-4E39-9817-55FF141CB162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0836878D-B572-4E39-9817-55FF141CB162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
