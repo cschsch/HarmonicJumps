@@ -67,7 +67,7 @@ namespace HarmonicJumps
                 Label = label?.Name,
                 Key = HarmonicJumps.Key.FromScaleName(key.ScaleName),
                 DJPlayCount = content.DJPlayCount ?? 0,
-                ImagePath = Path.Combine(sharePath, content.ImagePath),
+                ImagePath = Path.Join(sharePath, content.ImagePath[1..]),
                 Tags = myTags.Where(mt => mt.ParentID != "1").Select(mt => mt.Name).ToArray(),
                 DateCreated = DateTime.Parse(content.DateCreated),
                 Playlists = innermostPlaylists.Select(getPlaylistPath).ToArray()

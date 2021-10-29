@@ -122,5 +122,7 @@ namespace HarmonicJumps
                 return hash;
             }
         }
+
+        public override string ToString() => $"{Value}{(Signature == Signature.Minor ? "A" : "B")}";
     }
 }

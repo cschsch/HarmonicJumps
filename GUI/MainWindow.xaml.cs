@@ -26,7 +26,11 @@ namespace GUI
     public partial class MainWindow : Window
     {
         public Configuration Configuration { get; set; }
-        public MainModel Model { get; set; }
+        public MainModel Model 
+        {
+            get => DataContext as MainModel;
+            set => DataContext = value;
+        }
         public TrackFinder TrackFinder { get; set; }
 
         public MainWindow()
@@ -47,6 +51,7 @@ namespace GUI
             var tracks = db.Table<Content>().AsParallel().Select(c => Track.FromID(db, c.ID, sharePath)).ToArray();
 
             TrackFinder = new TrackFinder(harmonizer, tracks);
+            Model.NowPlaying = tracks.First();
         }
     }
 }

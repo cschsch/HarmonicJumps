@@ -4,16 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:model="clr-namespace:GUI.Model"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <model:MainModel x:Key="Model"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Source="{StaticResource Model}"/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <!--Now Playing-->
@@ -25,7 +32,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" Width="auto" Stretch="None" Margin="5,5,5,5"/>
+            <Image Grid.Column="0" Grid.Row="0" Source="{Binding Path=NowPlaying.ImagePath}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" Width="auto" Stretch="Fill" Margin="5,5,5,5"/>
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -38,6 +45,15 @@
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=NowPlaying.Title}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=NowPlaying.Artist}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=NowPlaying.BPM, StringFormat=' {0} BPM'}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=NowPlaying.Key}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=NowPlaying.Rating, StringFormat=' {0} Stars'}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=NowPlaying.Label}" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=NowPlaying.Genre}" TextAlignment="Center" VerticalAlignment="Top"/>
+                <ListBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Path=NowPlaying.GenreTags}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <ListBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding Path=NowPlaying.Tags}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
             </Grid>
         </Grid>
 
