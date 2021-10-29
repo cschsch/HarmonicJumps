@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HarmonicJumps
 {
@@ -15,12 +14,12 @@ namespace HarmonicJumps
             MaxDepth = maxDepth;
         }
 
-        public static IEnumerable<Key> Next(Key key, FindOptions options = FindOptions.RepeatSameKey)
+        public static IEnumerable<Key> Next(Key key, FilterOptions options = FilterOptions.RepeatSameKey)
         {
             yield return key - 7;
             yield return key - 2;
             yield return key - 1;
-            if(options.HasFlag(FindOptions.RepeatSameKey)) yield return key;
+            if(options.HasFlag(FilterOptions.RepeatSameKey)) yield return key;
             yield return -key;
             yield return key + 1;
             yield return key + 2;
@@ -40,7 +39,7 @@ namespace HarmonicJumps
             }
         }
 
-        public IEnumerable<ICollection<Key>> Find(Key start, Key end, FindOptions options = FindOptions.Default)
+        public IEnumerable<ICollection<Key>> Find(Key start, Key end, FilterOptions options = FilterOptions.Default)
         {
             if (start.Equals(end)) throw new ArgumentException($"Source and target key are the same.");
             var root = new Node<Key> { Value = start };
@@ -56,7 +55,7 @@ namespace HarmonicJumps
                 result => result);
         }
 
-        private IEnumerable<ICollection<Key>> FindInternal(Queue<Node<Key>> nodesToProcess, Key end, int currentDepth, FindOptions options)
+        private IEnumerable<ICollection<Key>> FindInternal(Queue<Node<Key>> nodesToProcess, Key end, int currentDepth, FilterOptions options)
         {
             if (currentDepth > MaxDepth || !nodesToProcess.Any()) yield break;
 
@@ -69,7 +68,7 @@ namespace HarmonicJumps
             else
             {
                 var children = Next(node.Value, options)
-                    .Where(key => options.HasFlag(FindOptions.RepeatSameKey) || !node.GetParents().Contains(key))
+                    .Where(key => options.HasFlag(FilterOptions.RepeatSameKey) || !node.GetParents().Contains(key))
                     .Select(key => new Node<Key> { Value = key, Parent = node });
 
                 foreach (var child in children)
@@ -78,9 +77,9 @@ namespace HarmonicJumps
                 }
             }
 
-            foreach(var seq in FindInternal(nodesToProcess, end, node.Depth, options))
+            foreach(var path in FindInternal(nodesToProcess, end, node.Depth, options))
             {
-                yield return seq;
+                yield return path;
             }
         }
     }
