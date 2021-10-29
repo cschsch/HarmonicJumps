@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Database;
 using GUI.Model;
+using Microsoft.Extensions.Configuration;
 
 namespace GUI
 {
@@ -21,12 +23,17 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Configuration Configuration { get; set; }
         public MainModel Model { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-
+            Configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddCommandLine(Environment.GetCommandLineArgs())
+                .Build()
+                .Get<Configuration>();
         }
     }
 }
