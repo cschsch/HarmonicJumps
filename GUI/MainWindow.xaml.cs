@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -52,6 +53,15 @@ namespace GUI
 
             TrackFinder = new TrackFinder(harmonizer, tracks);
             Model.NowPlaying = tracks.First();
+            Model.FilteredTracks = tracks.Where(track => track.BPM == 125).ToArray();
+        }
+
+        private void GeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            var propertyDescriptor = (PropertyDescriptor) e.PropertyDescriptor;
+            if (!propertyDescriptor.IsBrowsable) e.Cancel = true;
+            if (e.PropertyType == typeof(DateTime) || e.PropertyType == typeof(DateTime?)) (e.Column as DataGridTextColumn).Binding.StringFormat = "dd.MM.yyyy";
+            e.Column.Header = propertyDescriptor.DisplayName;
         }
     }
 }

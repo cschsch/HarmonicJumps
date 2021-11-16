@@ -23,6 +23,13 @@ namespace GUI.Model
             set { if (_filteredTracks == value) { return; } _filteredTracks = value; NotifyPropertyChanged(); }
         }
 
+        private Track _selectedTrack;
+        public Track SelectedTrack
+        {
+            get => _selectedTrack;
+            set { if (_selectedTrack == value) { return; } _selectedTrack = value; NotifyPropertyChanged(); }
+        }
+
         public MainModel()
         {
         }

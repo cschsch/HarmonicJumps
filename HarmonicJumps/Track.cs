@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Database;
@@ -12,19 +13,28 @@ namespace HarmonicJumps
     {
         public string Title { get; set; }
         public string Artist { get; set; }
-        public string Album { get; set; }
-        public string Genre { get; set; }
-        public string[] GenreTags { get; set; }
         public decimal BPM { get; set; }
-        public TimeSpan Length { get; set; }
-        public int TrackNo { get; set; }
         public int Rating { get; set; }
-        public string Label { get; set; }
-        public HarmonicJumps.Key Key { get; set; }
-        public int DJPlayCount { get; set; }
-        public string ImagePath { get; set; }
+        [Browsable(false)]
+        public string[] GenreTags { get; set; }
+        [DisplayName("Genres")]
+        public string GenreTagsToString => string.Join(", ", GenreTags);
+        [Browsable(false)]
         public string[] Tags { get; set; }
+        [DisplayName("Tags")]
+        public string TagsToString => string.Join(", ", Tags);
+        public Key Key { get; set; }
+        public TimeSpan Length { get; set; }
+        public int DJPlayCount { get; set; }
+        public string Album { get; set; }
+        public string Label { get; set; }
+        [Browsable(false)]
+        public string Genre { get; set; }
+        public int TrackNo { get; set; }
+        [Browsable(false)]
+        public string ImagePath { get; set; }
         public DateTime DateCreated { get; set; }
+        [Browsable(false)]
         public string[][] Playlists { get; set; }
 
         public static Track FromID(SQLiteConnection db, string id, string sharePath = "")
