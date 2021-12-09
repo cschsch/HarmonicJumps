@@ -1,4 +1,4 @@
-﻿namespace GUI
+﻿namespace HarmonicJumps
 {
     public class Configuration
     {
